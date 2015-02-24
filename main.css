@@ -1,0 +1,34 @@
+.code-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.code-container .CodeMirror {
+  width: 100%;
+  height: 100%;
+}
+
+.output {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+
+  width: 400px;
+  height: 400px;
+
+  border-radius: 10px;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.output iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  border: none;
+}
