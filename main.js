@@ -3,6 +3,23 @@ var cm = CodeMirror(document.querySelector('section.code-container'), {
   lineNumbers: true
 });
 
+var output = document.getElementById('output-frame');
+
+
+var timeoutId = null;
+cm.on('changes', function() {
+  if (timeoutId != null) {
+    clearTimeout(timeoutId);
+    timeoutId = null;
+  }
+  timeoutId = setTimeout(executeCode, 500);
+});
+
+function executeCode(code) {
+  timeoutId = null;
+  output.contentWindow.postMessage(cm.getValue(), '*');
+}
+
 /*cm.addKeyMap({
   "Tab": function (cm) {
     if (cm.somethingSelected()) {
