@@ -9,8 +9,65 @@
   <script>
     var renderer;
     window.addEventListener('message', function(m) {
-      console.log(m);
-      var code = new Function(m.data);
+      var overrides = function() {
+        var overridePoints = [
+          {
+            object: Text,
+            props: ['text', 'fontSize', 'fontFamily', 'fontStyle', 'fontWeight', 'glyphx', 'glyphy', 'cap', 'fill', 'join', 'line', 'textStrokeWidth', 'miterLimit', 'selectable']
+          },
+          {
+            object: TextSpan,
+            props: ['text', 'fontSize', 'fontFamily', 'fontStyle', 'fontWeight', 'glyphx', 'glyphy', 'cap', 'fill', 'join', 'line', 'textStrokeWidth', 'miterLimit', 'selectable']
+          },
+          {
+            object: Rect
+          },
+          {
+            object: Circle
+          },
+          {
+            object: Ellipse
+          },
+          {
+            object: Group
+          },
+          {
+            object: Polygon
+          },
+          {
+            object: Star
+          },
+          {
+            object: SpecialAttrPath
+          },
+          {
+            object: Path
+          }
+        ];
+        var defaultOverrides = ['matrix', 'opacity', 'rotation', 'origin', 'scale', 'scaleX', 'scaleY', 'x', 'y', 'filters'];
+        var overrideProperty = function(ob, name) {
+          Object.defineProperty(ob.prototype, name, {
+            get: function() {
+              return this.attr(name);
+            },
+            set: function(val) {
+              return this.attr(name, val);
+            }
+          });
+
+        };
+
+        overridePoints.forEach(function(point) {
+          defaultOverrides.forEach(function(name) {
+            overrideProperty(point.object, name);
+          });
+        });
+
+        for( var i in this) {
+          console.log(i);
+        }
+      };
+      var code = new Function('(' + overrides.toString() + ')(); ' + m.data);
       if (renderer) {
         renderer.destroy();
       }
