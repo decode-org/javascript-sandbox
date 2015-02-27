@@ -63,9 +63,9 @@
           });
         });
 
-        for( var i in this) {
-          console.log(i);
-        }
+        this.addEventListener('error', function(e) {
+          //Something went wrong
+        });
       };
       var code = new Function('(' + overrides.toString() + ')(); ' + m.data);
       if (renderer) {

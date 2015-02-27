@@ -4,7 +4,13 @@ var cm = CodeMirror(document.querySelector('section.code-container'), {
 });
 
 var output = document.getElementById('output-frame');
+var jshintWorker = new Worker('jshint-worker.js');
 
+jshintWorker.onmessage = function(event) {
+  if (event.data.type == 'jshint') {
+    console.log(event.data);
+  }
+};
 
 var timeoutId = null;
 cm.on('changes', function() {
@@ -16,6 +22,8 @@ cm.on('changes', function() {
 });
 
 function executeCode(code) {
+  var code = cm.getValue();
+  jshintWorker.postMessage({code: code});
   timeoutId = null;
   output.contentWindow.postMessage(cm.getValue(), '*');
 }
