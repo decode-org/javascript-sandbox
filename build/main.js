@@ -6,7 +6,6 @@ var cm = CodeMirror(document.querySelector('section.code-container'), {
 });
 
 var output = document.getElementById('output-frame');
-var jshintWorker = new Worker('jshint-worker.js');
 
 var editorWidgets = [];
 
@@ -42,10 +41,10 @@ cm.on('changes', function() {
 
 function executeCode(code) {
   var code = cm.getValue();
-  jshintWorker.postMessage({code: code});
   timeoutId = null;
   output.contentWindow.postMessage(cm.getValue(), '*');
 }
+
 
 /*cm.addKeyMap({
   "Tab": function (cm) {

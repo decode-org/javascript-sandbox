@@ -3,7 +3,7 @@ html, body {
   padding: 0;
 }
 
-#output, #error {
+#sandbox-output, #sandbox-error {
   position: absolute;
   left: 0;
   top: 0;
@@ -13,7 +13,7 @@ html, body {
   overflow: hidden;
 }
 
-#error {
+#sandbox-error {
   box-sizing: border-box;
   padding: 5px;
 
@@ -33,7 +33,7 @@ html, body {
   z-index: 100;
 }
 
-#error.active {
+#sandbox-error.active {
   visibility: visible;
   opacity: 1;
 }
