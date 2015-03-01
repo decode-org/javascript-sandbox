@@ -1,16 +1,35 @@
 var cm = CodeMirror(document.querySelector('section.code-container'), {
   mode: 'javascript',
-  lineNumbers: true
+  lineNumbers: true,
+  gutters: ["CodeMirror-lint-markers"],
+  lint: true
 });
 
 var output = document.getElementById('output-frame');
 var jshintWorker = new Worker('jshint-worker.js');
 
-jshintWorker.onmessage = function(event) {
+var editorWidgets = [];
+
+/*jshintWorker.onmessage = function(event) {
   if (event.data.type == 'jshint') {
-    console.log(event.data);
+    editorWidgets.forEach(function(widget) {
+      cm.removeWidget(widget);
+    });
+    editorWidgets = [];
+    event.data.message.hintErrors.forEach(function(error) {
+      if (error) {
+        var message = document.createElement('div');
+        var icon = message.appendChild(document.createElement('span'));
+        icon.innerHTML = '!!';
+        icon.className = 'lint-error-icon';
+        message.appendChild(document.createTextNode(error.reason));
+        message.className = 'lint-error';
+
+        editorWidgets.push(cm.addLineWidget(error.line - 1, message, {coverGutter: false, noHScroll: true}));
+      }
+    });
   }
-};
+};*/
 
 var timeoutId = null;
 cm.on('changes', function() {
