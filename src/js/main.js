@@ -7,29 +7,6 @@ var cm = CodeMirror(document.querySelector('section.code-container'), {
 
 var output = document.getElementById('output-frame');
 
-var editorWidgets = [];
-
-/*jshintWorker.onmessage = function(event) {
-  if (event.data.type == 'jshint') {
-    editorWidgets.forEach(function(widget) {
-      cm.removeWidget(widget);
-    });
-    editorWidgets = [];
-    event.data.message.hintErrors.forEach(function(error) {
-      if (error) {
-        var message = document.createElement('div');
-        var icon = message.appendChild(document.createElement('span'));
-        icon.innerHTML = '!!';
-        icon.className = 'lint-error-icon';
-        message.appendChild(document.createTextNode(error.reason));
-        message.className = 'lint-error';
-
-        editorWidgets.push(cm.addLineWidget(error.line - 1, message, {coverGutter: false, noHScroll: true}));
-      }
-    });
-  }
-};*/
-
 var timeoutId = null;
 cm.on('changes', function() {
   if (timeoutId != null) {
