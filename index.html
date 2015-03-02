@@ -4,6 +4,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.0.0/codemirror.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.0.0/addon/lint/lint.min.css" rel="stylesheet">
     <link href="build/main.css" rel="stylesheet"/>
+    <style>
+      .code-container .CodeMirror .CodeMirror-gutters {
+        transition: border-right-color 0.5s;
+      }
+      .code-container.recording .CodeMirror .CodeMirror-gutters {
+        border-right-color: #d47979;
+      }
+    </style>
   </head>
 </html>
 <body>
@@ -21,7 +29,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.0.0/addon/lint/javascript-lint.min.js"></script>
   <script src="bower_components/recode/dist/recode.js"></script>
   <script src="build/main.js"></script>
-  <script src="recoder.js"></script>
-
-  <script>var sandbox = new Sandbox(document.querySelector('section.code-container'), document.getElementById('output-frame'));</script>
+  <script src="test.js"></script>
 </body>
