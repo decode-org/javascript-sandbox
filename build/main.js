@@ -1,50 +1,31 @@
-var cm = CodeMirror(document.querySelector('section.code-container'), {
-  mode: 'javascript',
-  lineNumbers: true,
-  gutters: ["CodeMirror-lint-markers"],
-  lint: true
-});
+var Sandbox = function(container, output) {
+  var self = this;
+  this.container = container;
+  this.output = output;
+  this.timeoutId = null;
+  this.proxyCode = Sandbox.prototype.executeCode.bind(self);
 
-var output = document.getElementById('output-frame');
+  this.cm = CodeMirror(this.container, {
+    mode: 'javascript',
+    lineNumbers: true,
+    gutters: ["CodeMirror-lint-markers"],
+    lint: true
+  });
 
-var editorWidgets = [];
+  this.cm.on('changes', function() {
+    if (self.timeoutId != null) {
+      clearTimeout(self.timeoutId);
+      self.timeoutId = null;
+    }
+    self.timeoutId = setTimeout(self.proxyCode, 500);
+  });
+};
 
-/*jshintWorker.onmessage = function(event) {
-  if (event.data.type == 'jshint') {
-    editorWidgets.forEach(function(widget) {
-      cm.removeWidget(widget);
-    });
-    editorWidgets = [];
-    event.data.message.hintErrors.forEach(function(error) {
-      if (error) {
-        var message = document.createElement('div');
-        var icon = message.appendChild(document.createElement('span'));
-        icon.innerHTML = '!!';
-        icon.className = 'lint-error-icon';
-        message.appendChild(document.createTextNode(error.reason));
-        message.className = 'lint-error';
-
-        editorWidgets.push(cm.addLineWidget(error.line - 1, message, {coverGutter: false, noHScroll: true}));
-      }
-    });
-  }
-};*/
-
-var timeoutId = null;
-cm.on('changes', function() {
-  if (timeoutId != null) {
-    clearTimeout(timeoutId);
-    timeoutId = null;
-  }
-  timeoutId = setTimeout(executeCode, 500);
-});
-
-function executeCode(code) {
-  var code = cm.getValue();
-  timeoutId = null;
-  output.contentWindow.postMessage(cm.getValue(), '*');
-}
-
+Sandbox.prototype.executeCode = function() {
+  var code = this.cm.getValue();
+  this.timeoutId = null;
+  this.output.contentWindow.postMessage(this.cm.getValue(), '*');
+};
 
 /*cm.addKeyMap({
   "Tab": function (cm) {
