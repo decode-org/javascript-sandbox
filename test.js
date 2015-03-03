@@ -26,6 +26,19 @@ cm.on("changes", function (cm, changelist) {
     }
 
     changelist.forEach(function(change) {
+      var event = {
+        data: change.text,
+        position: {
+          row: change.from.line,
+          col: change.from.ch
+        },
+        length: {
+          row: change.to.line - change.from.line,
+          col: change.to.ch  - change.from.ch
+        },
+        mode: 0
+      };
+
       if (!first) {
         event.distance = 0;
       }
@@ -33,7 +46,7 @@ cm.on("changes", function (cm, changelist) {
       recoder.addAction(event);
 
       first = false;
-    }
+    });
   }
 });
 

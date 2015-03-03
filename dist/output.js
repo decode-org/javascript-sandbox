@@ -60,7 +60,7 @@ window.addEventListener('message', function(m) {
       });
     });
 
-    this.onerror = function(e) {
+    (self || this).onerror = function(e, url, line, col, ob) {
       stage.sendMessage('error', { });
     };
   };

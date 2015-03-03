@@ -68,12 +68,10 @@ Sandbox.prototype._addKeyMap = function () {
 Sandbox.prototype._handleTabNavigation = function (direction, functionName) {
   var instance = this.cm;
   var overallJump = null;
-  console.log(functionName);
 
   var indentUnit = instance.getOption("indentUnit");
 
   instance.listSelections().forEach(function (sel) {
-    console.log(sel);
     if (CodeMirror.cmpPos(sel.anchor, sel.head) !== 0) {
       // This is a range - it will just collapse/be deleted regardless of the jump we set, so
       // we can just ignore it and continue. (We don't want to return false in this case since
@@ -130,7 +128,6 @@ Sandbox.prototype._handleTabNavigation = function (direction, functionName) {
     // Just do the default move, which is one char in the given direction.
     overallJump = direction;
   }
-  console.log(functionName);
   instance[functionName](overallJump, "char");
 };
 
@@ -158,8 +155,6 @@ Sandbox.prototype._handleTabKey = function () {
   var instance = this.cm,
     selectionType = "indentAuto",
     selections = instance.listSelections();
-
-  console.log(instance);
 
   selections.forEach(function (sel) {
     if (sel.anchor.line !== sel.head.line) {
@@ -199,7 +194,6 @@ Sandbox.prototype._autoIndentEachSelection = function (selections) {
     lineLengths = {};
 
   selections.forEach(function (sel) {
-    console.log();
     lineLengths[sel.anchor.line] = instance.getLine(sel.anchor.line).length;
   });
 
@@ -299,25 +293,3 @@ Sandbox.prototype._doMultipleEdits = function (edits, origin) {
     });
   });
 };
-
-/*cm.addKeyMap({
-  "Tab": function (cm) {
-    if (cm.somethingSelected()) {
-      var sel = editor.getSelection("\n");
-      // Indent only if there are multiple lines selected, or if the selection spans a full line
-      if (sel.length > 0 && (sel.indexOf("\n") > -1 || sel.length === cm.getLine(cm.getCursor().line).length)) {
-        cm.indentSelection("add");
-        return;
-      }
-    }
-
-    if (cm.options.indentWithTabs) {
-      cm.execCommand("insertTab");
-    } else {
-      cm.execCommand("insertSoftTab");
-    }
-  },
-  "Shift-Tab": function (cm) {
-    cm.indentSelection("subtract");
-  }
-})*/
