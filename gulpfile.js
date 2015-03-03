@@ -4,13 +4,13 @@ var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('js', function() {
   return gulp.src('src/js/*.js')
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('css', function() {
   return gulp.src('src/css/*.css')
     .pipe(autoprefixer())
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('server', function() {
