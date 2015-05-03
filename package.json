@@ -1,8 +1,8 @@
 {
   "name": "javascript-sandbox",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple, clientside JavaScript sandbox",
-  "main": "index.html",
+  "main": "dist/sandbox.js",
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.8.11",
