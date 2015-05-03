@@ -1,10 +1,37 @@
 var gulp = require('gulp');
 var server = require('gulp-webserver');
 var autoprefixer = require('gulp-autoprefixer');
+var umd = require('gulp-umd');
+var merge = require('merge-stream');
 
 gulp.task('js', function() {
-  return gulp.src('src/js/*.js')
+  var main = gulp.src('src/js/main.js')
+    .pipe(umd({
+      dependencies: function () {
+        return [
+          {
+            name: 'CodeMirror',
+            amd: 'codemirror',
+            cjs: 'codemirror',
+            global: 'CodeMirror',
+            param: 'CodeMirror'
+          }
+        ];
+      },
+      exports: function (file) {
+        return 'Sandbox';
+      }
+    }));
+  var output = gulp.src('src/js/output.js')
+    .pipe(umd({
+      exports: function (file) {
+        return '\'Nothing Here\'';
+      }
+    }))
     .pipe(gulp.dest('dist'));
+
+  return merge(main, output)
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('css', function() {

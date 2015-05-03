@@ -1,3 +1,12 @@
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['codemirror'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require('codemirror'));
+  } else {
+    root.Main = factory(root.CodeMirror);
+  }
+}(this, function(CodeMirror) {
 var Sandbox = function (container, output) {
   var self = this;
   this.container = container;
@@ -293,3 +302,6 @@ Sandbox.prototype._doMultipleEdits = function (edits, origin) {
     });
   });
 };
+
+return Sandbox;
+}));
