@@ -5,7 +5,7 @@ var umd = require('gulp-umd');
 var merge = require('merge-stream');
 
 gulp.task('js', function() {
-  var main = gulp.src('src/js/main.js')
+  var main = gulp.src('src/js/sandbox.js')
     .pipe(umd({
       dependencies: function () {
         return [
@@ -17,18 +17,9 @@ gulp.task('js', function() {
             param: 'CodeMirror'
           }
         ];
-      },
-      exports: function (file) {
-        return 'Sandbox';
       }
     }));
-  var output = gulp.src('src/js/output.js')
-    .pipe(umd({
-      exports: function (file) {
-        return '\'Nothing Here\'';
-      }
-    }))
-    .pipe(gulp.dest('dist'));
+  var output = gulp.src('src/js/output.js');
 
   return merge(main, output)
     .pipe(gulp.dest('./dist'));

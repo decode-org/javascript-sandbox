@@ -4,7 +4,7 @@
   } else if (typeof exports === 'object') {
     module.exports = factory(require('codemirror'));
   } else {
-    root.Main = factory(root.CodeMirror);
+    root.Sandbox = factory(root.CodeMirror);
   }
 }(this, function(CodeMirror) {
 var Sandbox = function (container, output) {
