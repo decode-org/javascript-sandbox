@@ -74,7 +74,7 @@ function startRecode() {
       {
         name: 'Main',
         path: 'main',
-        language: 'html',
+        language: 'js',
         content: cm.getValue()
       }
     ];
