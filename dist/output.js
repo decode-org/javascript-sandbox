@@ -77,7 +77,9 @@ window.addEventListener('message', function(m) {
     renderer.destroy();
   }
   renderer = bonsai.run(document.getElementById('sandbox-output'), {
-    code: code
+    code: code,
+    width: 400,
+    height: 400
   });
 
   renderer.on('load', function(e) {
