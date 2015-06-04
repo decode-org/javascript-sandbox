@@ -1,6 +1,6 @@
 {
   "name": "javascript-sandbox",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Simple, clientside JavaScript sandbox",
   "main": "dist/sandbox.js",
   "dependencies": {},
