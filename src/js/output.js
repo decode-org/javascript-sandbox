@@ -66,7 +66,7 @@ window.addEventListener('message', function(m) {
   };
 
   try {
-    var code = new Function('(' + overrides.toString() + ')(); ' + m.data);
+    var code = new Function('(' + overrides.toString() + ').call(this); ' + m.data);
     errorElement.className = '';
   } catch (e) {
     // Don't log this
