@@ -10,11 +10,11 @@ window.addEventListener('message', function(m) {
     var overridePoints = [
       {
         object: Text,
-        props: ['text', 'fontSize', 'fontFamily', 'fontStyle', 'fontWeight', 'glyphx', 'glyphy', 'cap', 'fill', 'join', 'line', 'textStrokeWidth', 'miterLimit', 'selectable']
+        props: ['text', 'fontSize', 'fontFamily', 'fontStyle', 'fontWeight', 'glyphx', 'glyphy', 'textStrokeWidth', 'selectable']
       },
       {
         object: TextSpan,
-        props: ['text', 'fontSize', 'fontFamily', 'fontStyle', 'fontWeight', 'glyphx', 'glyphy', 'cap', 'fill', 'join', 'line', 'textStrokeWidth', 'miterLimit', 'selectable']
+        props: ['text', 'fontSize', 'fontFamily', 'fontStyle', 'fontWeight', 'glyphx', 'glyphy', 'textStrokeWidth', 'selectable']
       },
       {
         object: Rect
@@ -58,6 +58,12 @@ window.addEventListener('message', function(m) {
       defaultOverrides.forEach(function(name) {
         overrideProperty(point.object, name);
       });
+
+      if (point.props) {
+        point.props.forEach(function(name) {
+          overrideProperty(point.object, name);
+        });
+      }
     });
 
     (self || this).onerror = function(e, url, line, col, ob) {
